@@ -20,6 +20,7 @@ set script_dir [file dirname [file normalize [info script]]]
 source $script_dir/../../caravel/openlane/user_project_wrapper_empty/fixed_wrapper_cfgs.tcl
 
 set ::env(DESIGN_NAME) user_project_wrapper
+#set ::env(DESIGN_NAME) GcdUnit
 #section end
 
 # User Configurations
@@ -42,12 +43,15 @@ set ::env(MACRO_PLACEMENT_CFG) $script_dir/macro.cfg
 ### Black-box verilog and views
 set ::env(VERILOG_FILES_BLACKBOX) "\
 	$script_dir/../../caravel/verilog/rtl/defines.v \
-	$script_dir/../../verilog/rtl/user_proj_example.v"
+	$script_dir/../../verilog/rtl/user_proj_example.v \
+	$script_dir/../../verilog/rtl/design.v"
 
 set ::env(EXTRA_LEFS) "\
+    $script_dir/../../lef/design.lef \
 	$script_dir/../../lef/user_proj_example.lef"
 
 set ::env(EXTRA_GDS_FILES) "\
+    $script_dir/../../gds/design_merged.gds \
 	$script_dir/../../gds/user_proj_example.gds"
 
 set ::env(GLB_RT_MAXLAYER) 5
