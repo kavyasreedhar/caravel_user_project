@@ -38,7 +38,7 @@ set ::env(CLOCK_PERIOD) "10"
 
 ## Internal Macros
 ### Macro Placement
-set ::env(MACRO_PLACEMENT_CFG) $script_dir/macro.cfg
+# set ::env(MACRO_PLACEMENT_CFG) $script_dir/macro.cfg
 
 ### Black-box verilog and views
 set ::env(VERILOG_FILES_BLACKBOX) "\
@@ -71,3 +71,7 @@ set ::env(DIODE_INSERTION_STRATEGY) 0
 set ::env(FILL_INSERTION) 0
 set ::env(TAP_DECAP_INSERTION) 0
 set ::env(CLOCK_TREE_SYNTH) 0
+
+#set ::env(FP_CORE_UTIL) 5
+#set ::env(PL_TARGET_DENSITY) 0.5
+set ::env(PL_SKIP_INITIAL_PLACEMENT) 1
