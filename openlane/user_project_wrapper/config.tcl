@@ -72,6 +72,12 @@ set ::env(FILL_INSERTION) 0
 set ::env(TAP_DECAP_INSERTION) 0
 set ::env(CLOCK_TREE_SYNTH) 0
 
-#set ::env(FP_CORE_UTIL) 5
-#set ::env(PL_TARGET_DENSITY) 0.5
+set ::env(FP_CORE_UTIL) 5
+set ::env(PL_TARGET_DENSITY) 0.5
 set ::env(PL_SKIP_INITIAL_PLACEMENT) 1
+
+set ::env(FP_PDN_VOFFSET) 4
+set ::env(FP_PDN_VPITCH) 15
+set ::env(FP_PDN_HOFFSET) 4
+set ::env(FP_PDN_HPITCH) 15
+
