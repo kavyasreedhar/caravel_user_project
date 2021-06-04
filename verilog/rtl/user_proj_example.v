@@ -108,6 +108,7 @@ module user_proj_example #(
     assign la_write = ~la_oenb[63:32] & ~{BITS{valid}};
     // Assuming LA probes [65:64] are for controlling the count clk & reset  
     assign clk = (~la_oenb[64]) ? la_data_in[64]: wb_clk_i;
+//    assign clk = wb_clk_i & 1'b1;
     assign rst = (~la_oenb[65]) ? la_data_in[65]: wb_rst_i;
 
     counter #(
