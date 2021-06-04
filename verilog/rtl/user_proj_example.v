@@ -89,6 +89,7 @@ module user_proj_example #(
     wire [3:0] wstrb;
     wire [31:0] la_write;
 
+
     // WB MI A
     assign valid = wbs_cyc_i && wbs_stb_i; 
     assign wstrb = wbs_sel_i & {4{wbs_we_i}};
@@ -103,7 +104,7 @@ module user_proj_example #(
     assign irq = 3'b000;	// Unused
 
     // LA
-    assign la_data_out = {{(127-BITS){1'b0}}, count};
+//    assign la_data_out = {{(127-BITS){1'b0}}, count};
     // Assuming LA probes [63:32] are for controlling the count register  
     assign la_write = ~la_oenb[63:32] & ~{BITS{valid}};
     // Assuming LA probes [65:64] are for controlling the count clk & reset  
@@ -111,10 +112,25 @@ module user_proj_example #(
 //    assign clk = wb_clk_i & 1'b1;
     assign rst = (~la_oenb[65]) ? la_data_in[65]: wb_rst_i;
 
-    counter #(
+    wire gcd_req_rdy;
+    wire gcd_resp_val;
+
+    GcdUnit gcd(
+	.clk(clk),
+	.req_msg(wbs_dat_i),
+     	.req_rdy(gcd_req_rdy),
+        .req_val(valid),
+        .reset(rst),
+        .resp_msg(la_data_out[15:0]),
+        .resp_rdy(valid),
+        .resp_val(gcd_resp_val)
+    );
+
+
+    /*counter #(
         .BITS(BITS)
-    ) counter_(
-        .clk_(clk),
+    ) counter(
+        .clk(clk),
         .reset(rst),
         .ready(wbs_ack_o),
         .valid(valid),
@@ -124,7 +140,7 @@ module user_proj_example #(
         .la_write(la_write),
         .la_input(la_data_in[63:32]),
         .count(count)
-    );
+    );*/
 
 endmodule
 
