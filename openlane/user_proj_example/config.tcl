@@ -18,26 +18,26 @@ set script_dir [file dirname [file normalize [info script]]]
 set ::env(DESIGN_NAME) user_proj_example
 
 # COMMENT THIS IN
-set ::env(VERILOG_FILES) "\
+# set ::env(VERILOG_FILES) "\
 	$script_dir/../../caravel/verilog/rtl/defines.v \
 	$script_dir/../../verilog/rtl/user_proj_example.v \
         $script_dir/../../verilog/rtl/design.v"
 
 # BELOW DOESN"T SEEM TO WORK
-#set ::env(VERILOG_FILES) "\
+set ::env(VERILOG_FILES) "\
 	$script_dir/../../caravel/verilog/rtl/defines.v \
 	$script_dir/../../verilog/rtl/user_proj_example.v"
-#set ::env(VERILOG_FILES_BLACKBOX) "\
+set ::env(VERILOG_FILES_BLACKBOX) "\
         $script_dir/../../verilog/rtl/design.v"
 
-#set ::env(EXTRA_LEFS) "\
+set ::env(EXTRA_LEFS) "\
 	$script_dir/../../lef/design.lef"
 
-#set ::env(EXTRA_GDS_FILES) "\
+set ::env(EXTRA_GDS_FILES) "\
 	$script_dir/../../gds/design_merged.gds"
 
-set ::env(CLOCK_PORT) ""
-set ::env(CLOCK_NET) "gcd.clk"
+set ::env(CLOCK_PORT) "wb_clk_i"
+set ::env(CLOCK_NET) ""
 set ::env(CLOCK_PERIOD) "10"
 
 set ::env(FP_SIZING) absolute
