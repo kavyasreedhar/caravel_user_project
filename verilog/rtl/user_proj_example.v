@@ -89,7 +89,6 @@ module user_proj_example #(
     wire [3:0] wstrb;
     wire [31:0] la_write;
 
-
     // WB MI A
     assign valid = wbs_cyc_i && wbs_stb_i; 
     assign wstrb = wbs_sel_i & {4{wbs_we_i}};
@@ -103,44 +102,23 @@ module user_proj_example #(
     // IRQ
     assign irq = 3'b000;	// Unused
 
-    // LA
-//    assign la_data_out = {{(127-BITS){1'b0}}, count};
-    // Assuming LA probes [63:32] are for controlling the count register  
-    assign la_write = ~la_oenb[63:32] & ~{BITS{valid}};
-    // Assuming LA probes [65:64] are for controlling the count clk & reset  
-    assign clk = (~la_oenb[64]) ? la_data_in[64]: wb_clk_i;
-//    assign clk = wb_clk_i & 1'b1;
-    assign rst = (~la_oenb[65]) ? la_data_in[65]: wb_rst_i;
-
     wire gcd_req_rdy;
     wire gcd_resp_val;
+    assign wbs_ack_o = ~valid ? 1'b0 :
+                         wbs_we_i ? gcd_req_rdy : gcd_resp_val;
+
+    wire [15:0] gcd_resp;
+    assign wbs_dat_o = {16'b0, gcd_resp};
 
     GcdUnit gcd(
-	.clk(clk),
-	.req_msg(wbs_dat_i),
-     	.req_rdy(gcd_req_rdy),
-        .req_val(valid),
-        .reset(rst),
-        .resp_msg(la_data_out[15:0]),
-        .resp_rdy(valid),
+        .clk(wb_clk_i),
+        .reset(wb_rst_i),
+        .req_msg(wbs_dat_i),
+        .req_rdy(gcd_req_rdy),
+        .req_val(valid && wbs_we_i),
+        .resp_msg(gcd_resp),
+        .resp_rdy(valid && !wbs_we_i),
         .resp_val(gcd_resp_val)
     );
 
-
-    /*counter #(
-        .BITS(BITS)
-    ) counter(
-        .clk(clk),
-        .reset(rst),
-        .ready(wbs_ack_o),
-        .valid(valid),
-        .rdata(rdata),
-        .wdata(wbs_dat_i),
-        .wstrb(wstrb),
-        .la_write(la_write),
-        .la_input(la_data_in[63:32]),
-        .count(count)
-    );*/
-
 endmodule
-

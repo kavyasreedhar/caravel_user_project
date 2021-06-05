@@ -45,10 +45,11 @@ set ::env(VERILOG_FILES_BLACKBOX) "\
 	$script_dir/../../verilog/rtl/user_proj_example.v"
 
 set ::env(EXTRA_LEFS) "\
-	$script_dir/../../lef/user_proj_example.lef"
+	$script_dir/../../openlane/user_proj_example/runs/user_proj_example/results/magic/user_proj_example.lef"
 
 set ::env(EXTRA_GDS_FILES) "\
-	$script_dir/../../gds/user_proj_example.gds"
+	$script_dir/../../openlane/user_proj_example/runs/user_proj_example/results/magic/user_proj_example.gds"
+#	$script_dir/../../gds/user_proj_example.gds
 
 set ::env(GLB_RT_MAXLAYER) 5
 
